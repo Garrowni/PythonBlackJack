@@ -102,19 +102,18 @@ class Hand:
     return self.value
 
   def is_blackjack(self):
-      return self.get_value() == 21
+    return self.get_value() == 21
 
-  def display(self):
+  def display(self, showAllDealerCards=False):
     print(f'''{"Dealer's" if self.dealer else "Your"} hand:''')
     for index, card in enumerate(self.cards):
-      print(index, card)
+      if index == 0 and self.dealer \
+      and not showAllDealerCards \
+      and not self.is_blackjack():
+        print("hidden")
+      else:
+        print(card)
+
     if not self.dealer:
       print("Value: ", self.get_value())
       print()
-deck = Deck()
-deck.shuffle()
-
-hand = Hand()
-hand.addCard(deck.deal(2))
-hand.display()
-
