@@ -8,5 +8,6 @@ for suit in suits:
     cards.append([suit, rank])
 
 random.shuffle(cards)
-print(cards)
+card = cards.pop()
+print(card)
 
