@@ -74,5 +74,47 @@ class Deck:
     return cards_dealt
 
 
-card1 = Card("hearts", {"rank": "J", "value": 10})
-print(card1)
+class Hand:
+
+  def __init__(self, dealer=False):
+    self.cards = []
+    self.value = 0
+    self.dealer = dealer
+
+  def addCard(self, card_list):
+    self.cards.extend(card_list)
+
+  def calculateValue(self):
+    self.value = 0
+    has_ace = False
+
+    for card in self.cards:
+      card_value = int(card.rank["value"])
+      self.value += card_value
+      if card.rank["rank"] == "A":
+        has_ace = True
+
+    if has_ace and self.value > 21:
+      self.value -= 10
+
+  def get_value(self):
+    self.calculateValue()
+    return self.value
+
+  def is_blackjack(self):
+      return self.get_value() == 21
+
+  def display(self):
+    print(f'''{"Dealer's" if self.dealer else "Your"} hand:''')
+    for index, card in enumerate(self.cards):
+      print(index, card)
+    if not self.dealer:
+      print("Value: ", self.get_value())
+      print()
+deck = Deck()
+deck.shuffle()
+
+hand = Hand()
+hand.addCard(deck.deal(2))
+hand.display()
+
