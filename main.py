@@ -10,12 +10,24 @@ for suit in suits:
 def shuffle():
   random.shuffle(cards)
 
-def deal():
-  card = cards.pop()
-  return card
+def deal(number):
+  cards_dealt=[]
+  for card in range(number):
+    card = cards.pop()
+    cards_dealt.append(card)
+  return cards_dealt
 
 shuffle()
-card = deal()
+cards_dealt = deal(2)
+card = cards_dealt[0]
+rank = card[1]
 
-print(card)
+if rank == "A":
+  value = 11
+elif rank in ["J", "Q", "K"]:
+  value = 10
+else:
+  value = int(rank)
+print(rank, 
+      value)
 
